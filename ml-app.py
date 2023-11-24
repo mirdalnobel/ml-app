@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.datasets import fetch_openml
+from sklearn.datasets import fetch_openml, load_diabetes, load_boston
 
 # Page layout
 st.set_page_config(page_title='The Machine Learning App', layout='wide')
@@ -103,25 +103,23 @@ if uploaded_file is not None:
     build_model(df)
 else:
     st.info('Awaiting for CSV file to be uploaded.')
-    if st.button('Press to use Example Dataset'):
+    if st.button('Use Example Datasets'):
         # Diabetes dataset
-        diabetes = fetch_openml(name="diabetes", version=1)
-        X = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
-        Y = pd.Series(diabetes.target, name='response')
-        df = pd.concat([X, Y], axis=1)
+        diabetes = load_diabetes()
+        X_diabetes = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)
+        Y_diabetes = pd.Series(diabetes.target, name='response')
+        df_diabetes = pd.concat([X_diabetes, Y_diabetes], axis=1)
 
-        st.markdown('The Diabetes dataset is used as the example.')
-        st.write(df.head(5))
-
-        build_model(df)
+        st.markdown('**Diabetes Dataset**')
+        st.write(df_diabetes.head(5))
+        build_model(df_diabetes)
 
         # Boston housing dataset
-        boston = fetch_openml(name="boston", version=1)
-        X = pd.DataFrame(boston.data, columns=boston.feature_names)
-        Y = pd.Series(boston.target, name='response')
-        df = pd.concat([X, Y], axis=1)
+        boston = load_boston()
+        X_boston = pd.DataFrame(boston.data, columns=boston.feature_names)
+        Y_boston = pd.Series(boston.target, name='response')
+        df_boston = pd.concat([X_boston, Y_boston], axis=1)
 
-        st.markdown('The Boston housing dataset is used as the example.')
-        st.write(df.head(5))
-
-        build_model(df)
+        st.markdown('**Boston Housing Dataset**')
+        st.write(df_boston.head(5))
+        build_model(df_boston)
