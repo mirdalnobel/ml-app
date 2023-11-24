@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.datasets import fetch_openml, load_diabetes, load_boston
+from sklearn.datasets import load_diabetes, load_boston
 
 # Page layout
 st.set_page_config(page_title='The Machine Learning App', layout='wide')
